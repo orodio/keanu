@@ -2,9 +2,10 @@
   "name": "keanu",
   "version": "0.0.1",
   "description": "Attempt at the Actor Model in javascript",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:lib": "babel src --out-dir lib",
+    "test": "node_modules/mocha/bin/mocha --compilers js:babel/register ./tests/"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   "author": "orodio <james@bjorkman.ca>",
   "license": "MIT",
   "dependencies": {
-    "babel": "^5.8.23"
+    "babel": "^5.8.23",
+    "mocha": "^2.3.3"
   }
 }
