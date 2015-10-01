@@ -6,6 +6,6 @@ export default class PS {
   }
 
   send (message) {
-    this.state = this.receiver(message, this.state);
+    this.state = this.receiver(message, this.state, this.pid);
   }
 }

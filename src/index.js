@@ -1,3 +1,4 @@
+import isEqual from "lodash/lang/isEqual"
 import PS from "./process"
 
 let xs = {}
@@ -17,10 +18,12 @@ export function test_pid () {
   return spawn({receive (e, _es) { return e }})
 }
 
+function s(v) { return JSON.stringify(v) }
+
 export function assert_receive (pid, message) {
-  const v1 = JSON.stringify(message)
-  const v2 = JSON.stringify(xs[pid].state)
-  if (v1 !== v2) throw new Error(`assert_receive: expected: ${ v1 }, got: ${ v2 }`)
+  const v1 = message
+  const v2 = xs[pid].state
+  if (!isEqual(v1, v2)) throw new Error(`assert_receive: expected: ${ s(v1) }, got: ${ s(v2) }`)
   return true
 }
 
