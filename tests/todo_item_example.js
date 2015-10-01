@@ -8,6 +8,7 @@ function receive (message, history, self) {
     case "request_history": return send_history(message, history, self)
     case "set_label":       return set_label(message, history)
     case "set_done":        return set_done(message, history)
+    case "undo":            return undo(history)
     case "snapshot":        return destructive_snapshot(history)
     default:                return history
   }
@@ -52,6 +53,11 @@ function destructive_snapshot (history) {
   if (summery.label != null) new_history = [...new_history, ["set_label", summery.label]]
   if (summery.done  != null) new_history = [...new_history, ["set_done", summery.done]]
   return new_history
+}
+
+function undo (history) {
+  history.pop()
+  return history
 }
 
 export default { receive }

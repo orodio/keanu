@@ -90,5 +90,24 @@ describe("todo item", () => {
       ])
       assert_summery({label: "bob", done: false})
     })
+
+    it ("can undo an event or two", () => {
+      const history = [
+        ["set_label", "steve"],
+        ["set_label", "bob"]
+      ]
+
+      for (let message of history) send(item, message)
+      send(item, ["set_label", "gary"])
+      assert_summery({label: "gary"})
+      send(item, ["undo"])
+      assert_summery({label: "bob"})
+      send(item, ["undo"])
+      assert_summery({label: "steve"})
+      send(item, ["undo"])
+      assert_summery({})
+      send(item, ["undo"])
+      assert_summery({})
+    })
   })
 })
