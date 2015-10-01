@@ -1,47 +1,35 @@
-> not even close to production ready
+## Lol wat
 
-# The Goal
+You create modules of rules with no state. You spawn a process (not an actual process yet) that can be sent messages.
 
+```javascript
+// from the bank_account_example in the tests directory
+
+// BankAccount is the module
+// receive is BankAccount.receive
+//   - type: message -> state -> state
+//   - it gets passed the message and the current state
+//   - it returns the new state
+// [] is the initial (seed) state
+let account = spawn(BankAccount, "receive", [])
+
+send(account, ["deposit", 50])  // send account a message of deposit 50
+send(account, ["withdraw", 30]) // send account a message of withdraw 30
+
+// pid_of_other_process will be sent ["balance", 20]
+send(account, ["check_balance", pid_of_other_process])
 ```
-  import { spawn, send, test_pid, assert_receive } from "keanu"
 
-  const BankAccount = {
-    receive (events, event) {
-      const [ event_type ] = event
-      if (event_type === "check_balance") this.check_balance(pid, events)
-      return [...events, event]
-    },
+## Exampls
 
-    check_balance (pid, events) {
-      let balance = events.reduce(this.balance_reducer, 0)
-      send(pid, ["balance", balance])
-    },
+In Test Directory
+- Simple CQRS style bank account
 
-    balance_reducer (event, acc) {
-      const { event_type, amount } = event
-      switch (event_type) {
-        case "deposit": return acc + amount
-        case "withdraw": return acc - amount
-        default: return amount
-      }
-    }
-  }
+## TODO
 
-  let t1 = test_pid()
-  let b1 = spawn(BankAccount, "receive", [])
-  send(b1, ["check_balance", t1])
-  assert_receive(t1, ["balance", 0])
-
-  let t2 = test_pid()
-  let b2 = spawn(BankAccount, "receive", [])
-  send(b2, ["deposit", 50])
-  send(b2, ["check_balance", t1])
-  assert_receive(t2, ["balance", 50])
-
-  let t3 = test_pid()
-  let b3 = spawn(BankAccount, "receive", [])
-  send(b3, ["deposit", 50])
-  send(b3, ["withdraw", 30])
-  send(b3, ["check_balance", t1])
-  assert_receive(t3, ["balance", 20])
-```
+- [ ] Make `send` async
+- [ ] Make `send` concurrent
+- [ ] Can subscribe to changes in an actors state
+- [ ] Can unsubscribe from changes in an actors state
+- [ ] Supervisor layer for persistence
+- [ ] actor state is an immutable reference type (maybe something like a bitmap hash tries)

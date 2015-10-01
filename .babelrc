@@ -1,0 +1,11 @@
+{
+  "optional": [
+    "es7.comprehensions",
+    "es7.classProperties",
+    "es7.doExpressions",
+    "es7.functionBind",
+    "es7.decorators",
+    "es7.exportExtensions",
+    "es7.trailingFunctionCommas"
+  ]
+}
