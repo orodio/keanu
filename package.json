@@ -1,6 +1,6 @@
 {
   "name": "keanu",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Attempt at the Actor Model in javascript",
   "main": "dist/keanu.min.js",
   "scripts": {
