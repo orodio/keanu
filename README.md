@@ -33,3 +33,7 @@ In Test Directory
 - [ ] Can unsubscribe from changes in an actors state
 - [ ] Supervisor layer for persistence
 - [ ] actor state is an immutable reference type (maybe something like a bitmap hash tries)
+
+## License
+
+**keanu** is Copyright (c) 2015 James Hunter [@cccc00](https://twitter.com/cccc00) and licensed under the MIT license. All rights not explicitly granted in the MIT license are reserved. See the included LICENSE file for more details.
