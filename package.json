@@ -2,10 +2,13 @@
   "name": "keanu",
   "version": "0.0.1",
   "description": "Attempt at the Actor Model in javascript",
-  "main": "lib/index.js",
+  "main": "dist/keanu.min.js",
   "scripts": {
+    "build:min": "./node_modules/.bin/babel src | ./node_modules/.bin/uglifyjs --screw-ie8 -mc -o dist/keanu.min.js",
+    "build:dev": "./node_modules/.bin/babel src --source-maps inline -s -o dist/keanu.js",
+    "build": "npm run build:min; npm run build:dev",
     "build:lib": "babel src --out-dir lib",
-    "test": "node_modules/mocha/bin/mocha --compilers js:babel/register ./tests/"
+    "test": "./node_modules/.bin/mocha --compilers js:babel/register ./tests"
   },
   "repository": {
     "type": "git",
@@ -21,6 +24,7 @@
     "async": "1.4.2",
     "babel": "5.8.23",
     "lodash": "^3.10.1",
+    "uglify-js": "2.4.24",
     "mocha": "2.3.3"
   }
 }
