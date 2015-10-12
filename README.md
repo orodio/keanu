@@ -20,7 +20,7 @@ send(account, ["withdraw", 30]) // send account a message of withdraw 30
 send(account, ["check_balance", pid_of_other_process])
 ```
 
-## Exampls
+## Examples
 
 In Test Directory
 - Simple CQRS style bank account
